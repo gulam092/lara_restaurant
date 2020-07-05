@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Category;
+use DB;
 class CategoryController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories  = Category::latest()->get();
+        return view('category.index',compact('categories'))
+                ->with('message','All Category Listed here');
     }
 
     /**
@@ -23,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+
+        return view("category.create");
     }
 
     /**
@@ -34,7 +38,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required'
+        ]);
+        
+        $category = new Category;
+        $category->name  = $request->name;
+        $category->save();
+      // Category::create([
+      //       'name'=>$request->get('name')
+      //   ]);
+
+        return redirect()->back()->with('message','Category Created');
     }
 
     /**
@@ -56,7 +71,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category  =Category::find($id);
+        return view('category.edit',compact('category'));
     }
 
     /**
@@ -68,7 +84,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required'
+        ]);
+        $category  =Category::find($id);
+        $category->name  =$request->get('name');
+        $category->save();
+        return redirect()->route('category.index')
+               ->with('message','Category Updated');
     }
 
     /**
@@ -79,6 +102,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category  =Category::find($id);
+        $category->delete();
+        return redirect()->route('category.index')
+               ->with('message','Category Deleted!');
     }
 }
