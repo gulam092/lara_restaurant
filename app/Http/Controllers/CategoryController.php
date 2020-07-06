@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories  = Category::latest()->get();
         return view('category.index',compact('categories'))
-                ->with('message','All Category Listed here');
+            ->with('message','All Category Listed here');
     }
 
     /**

@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/','FoodController@listFood');
+
+Route::get('/foods/{id}','FoodController@view')
+                            ->name('food.view');
 
 Route::resource('category','CategoryController')
                           ->middleware('auth');
