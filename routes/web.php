@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/disneyplus', 'DisneyplusController@create')->name('disneyplus.create');
+Route::post('/disneyplus', 'DisneyplusController@store')->name('disneyplus.store');
+Route::get('disneyplus/list', 'DisneyplusController@index')->name('disneyplus.index');
+Route::get('/downloadPDF/{id}','DisneyplusController@downloadPDF');
+
+
+
+
 Route::get('/','FoodController@listFood');
 
 Route::get('/foods/{id}','FoodController@view')
