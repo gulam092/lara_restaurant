@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ReviewRequest;
+use App\Http\Resources\ReviewResource;
 
+use Illuminate\Http\Request;
+use App\Model\Review;
+use App\Model\Product;
+use Symfony\Component\HttpFoundation\Response;
 class ReviewController extends Controller
 {
     /**
@@ -11,9 +16,11 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+    return ReviewResource::collection($product->reviews);
+      // return ReviewResource::collection($product->reviews);
+    
     }
 
     /**
@@ -40,10 +47,10 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Review $review)
     {
         //
     }
@@ -51,10 +58,10 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Review $review)
     {
         //
     }
@@ -63,10 +70,10 @@ class ReviewController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Review $review)
     {
         //
     }
@@ -74,10 +81,10 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Review $review)
     {
         //
     }
